@@ -53,9 +53,9 @@ Example scheme:
 
 {{{
 http://domain.com/service/descriptor/stable - most recent version=2.0
-http://domain.com/service/descriptor/1.0
-http://domain.com/service/descriptor/2.0
-http://domain.com/service/descriptor/2.1a
+http://domain.com/service/descriptor/1.0.0
+http://domain.com/service/descriptor/2.0.0
+http://domain.com/service/descriptor/2.1.0.alpha
 }}}
 
 The URLs in the descriptors should, if applicable, change to reflect the service version.
