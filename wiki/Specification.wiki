@@ -1,4 +1,6 @@
-#labels Featured,Specification
+#labels Featured
+#sidebar TableOfContents
+
 =JSON Services=
 
 ==JSON Service Descriptor==
@@ -9,22 +11,23 @@ The JSON Service Descriptor is a JSON document returned as the result of a HTTP 
 
 The URL of the descriptor does not have to be related to the URL of the services offered.
 
- {{{
+<wiki:comment> language =html as no highlighting</wiki:comment>
+<code language="html">
 GET /some/service/descriptor HTTP/1.1
-Accept: application/json
-}}}
+Accept: application/json</code>
 
 Mandatory headers:
 
-{{{
+<code language="html">
 HTTP/1.1 200 OK
 Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
 Content-Type: application/json; charset=UTF-8; describedby=http://json-service.com/descriptor-schema
-}}}
+</code>
 
 As shown by the Content-Type header, the descriptor must conform to the JSON Service Descriptor Schema, which in [http://orderly-json.org Orderly] representation is:
 
-{{{
+
+<code language="html">
 object {
   string url;
   string label;
@@ -97,7 +100,7 @@ object {
     isNonFunctional: boolean?;
   } mixinInformation?;
 }*;
-}}}
+</code>
 
 
 ==JSON Service Versioning==
@@ -114,48 +117,48 @@ Services may, optionally, offer versioning as per the descriptor; if so:
 
 ===Most recent (stable) version example===
 
-{{{
+<code language="html">
 GET /some/service/descriptor HTTP/1.1
 Accept: application/json
-}}}
+</code>
 
-{{{
+<code language="html">
 HTTP/1.1 200 OK
 Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
 Content-Type: application/json; charset=UTF-8; describedby=http://json-service.com/descriptor-schema
 Version: 2.0
-}}}
+</code>
 
 ===Named version example===
 
-{{{
+<code language="html">
 GET /some/service/descriptor?v1.0 HTTP/1.1
 Accept: application/json
-}}}
+</code>
 
-{{{
+<code language="html">
 HTTP/1.1 200 OK
 Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
 Content-Type: application/json; charset=UTF-8; describedby=http://json-service.com/descriptor-schema
 Version: 1.0
-}}}
+</code>
 
 ==JSON Service Execution==
 
 Note that you should include describedby in the Content-Type response header.
 
-{{{
+<code language="html">
 GET /some/service/id4454 HTTP/1.1
 Accept: application/json
 
 { "a":0, "b":"foo", "c":"23skidoo" }
-}}}
+</code>
 
-{{{
+<code language="html">
 HTTP/1.1 200 OK
 Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
 Content-Type: application/json; charset=UTF-8; describedby=http://domain.com/post-output-schema
-}}}
+</code>
 
 ==Mixins==
 
@@ -188,14 +191,14 @@ Note implementation is transitive, i.e. A implements B and B implements C => A i
 
 A JSON Service registry is a URL that upon GET with content type application/json simply provides a structured collection of JSON Service URLs, in accordance with the JSON Registry Schema detailed below in http://orderly-json.org Orderly] representation. Note that the schema supports service taxonomies in the form a/b/c.
 
-{{{
+<code language="cpp">
 array {
   object {
     string: url;
     array { string; } taxonomy;
   }
 };
-}}}
+</code>
 
 =Overloading=
 
