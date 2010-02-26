@@ -49,22 +49,6 @@ http://domain.com/service/descriptor/2.1a
 
 The URLs in the descriptors should, if applicable, change to reflect the service version.
 
-===Named version example===
-
-<code language="html">
-GET /some/service/descriptor?v1.0 HTTP/1.1
-Accept: application/json
-</code>
-
-<code language="html">
-HTTP/1.1 200 OK
-Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
-Content-Type: application/json; charset=UTF-8; describedby=http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json
-Version: 1.0
-
-...
-</code>
-
 ==JSON Service Requests==
 
 JSON Service requests are by definition standard JSON+HTTP/REST-JSON requests.
