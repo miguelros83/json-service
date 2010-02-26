@@ -36,7 +36,9 @@ The current version number must be included in the descriptor.
 
 Services may, optionally, offer different versions. 
 
-A service must have a fixed descriptor URL for the most recent (stable) version, and also a different descriptor URL for each version, including the most recent version. These URLs are supplied in the descriptor.
+A service must have a fixed descriptor URL for the most recent (stable) version, and also a different descriptor URL for each version, including the most recent version.
+
+The fixed and optional versioned URLs are supplied in the descriptor.
 
 Example scheme:
 
