@@ -40,6 +40,8 @@ A service must have a fixed descriptor URL for the most recent (stable) version,
 
 The fixed and optional versioned URLs are supplied in the descriptor.
 
+Versions must be of the form `[major].[minor]` or `[major].[minor][modifier]`.
+
 Example scheme:
 
 {{{
