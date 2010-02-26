@@ -11,7 +11,6 @@ The JSON Service Descriptor is a JSON document returned as the result of a HTTP 
 
 The URL of the descriptor does not have to be related to the URL of the services offered.
 
-<wiki:comment> language =html as no highlighting</wiki:comment>
 <code language="html">
 GET /some/service/descriptor HTTP/1.1
 Accept: application/json</code>
@@ -27,7 +26,7 @@ Content-Type: application/json; charset=UTF-8; describedby=http://json-service.c
 As shown by the Content-Type header, the descriptor must conform to the JSON Service Descriptor Schema, which in [http://orderly-json.org Orderly] representation is:
 
 
-<code language="html">
+<code language="js">
 object {
   string url;
   string label;
@@ -107,9 +106,9 @@ object {
 
 Services may, optionally, offer versioning as per the descriptor; if so:
 
-  * a version of type [major version].[minor version] can be passed in via the query string, optionally (example below)
+  * a version of type `[major version].[minor version]` can be passed in via the query string, optionally (example below)
     * not passed in through HTTP Headers so responses can be cached.
-  * Must always be the prefix of the query string of form v[maj].[min]
+  * Must always be the prefix of the query string of form v`[maj].[min]`
   * Should use a semi-colon or ampersand afterwards if other content follows.
   * there must be a Version response header.
   * available versions must be detailed in the descriptor as per the schema;
@@ -151,8 +150,7 @@ Note that you should include describedby in the Content-Type response header.
 GET /some/service/id4454 HTTP/1.1
 Accept: application/json
 
-{ "a":0, "b":"foo", "c":"23skidoo" }
-</code>
+{ "a":0, "b":"foo", "c":"23skidoo" }</code>
 
 <code language="html">
 HTTP/1.1 200 OK
