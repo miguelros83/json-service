@@ -26,7 +26,7 @@ Content-Type: application/json; charset=UTF-8; describedby=http://json-service.c
 As shown by the Content-Type header, the descriptor must conform to the JSON Service Descriptor Schema, which in [http://orderly-json.org Orderly] representation is:
 
 
-<code language="js">
+<code language="html">
 object {
   string url;
   string label;
@@ -59,9 +59,8 @@ object {
               string name;
               string pattern?;
               string description;
-            }  
+            };
           }  customHeaders;
-          ref "http://json-schema.org/hyper-schema" inputSchema?;
           array { string; }  requiredCookies;
           array {
             object {
@@ -73,14 +72,18 @@ object {
                   string name;
                   string pattern?;
                   string description;
-                }  
+                };  
               }  customHeaders;
-              ref "http://json-schema.org/hyper-schema" outputSchema?;
             };
           } responses;
         };
       } actions;
+    }
   } resources;
+  object {
+    string mixinMetaInformationSchema;
+    boolean isNonFunctional;
+  } mixinInformation?;
   array {
     object {
       string url;
@@ -90,14 +93,10 @@ object {
         object { 
           string mixinResourceId;
           string resourceId; 
-        }
+        };
       } resourceIdMaps?;
     };
   } implementedMixins?;
-  object {
-    mixinMetaInformationSchema: string?;
-    isNonFunctional: boolean?;
-  } mixinInformation?;
 }*;
 </code>
 
