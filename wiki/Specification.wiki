@@ -1,5 +1,5 @@
 #labels Featured
-#sidebar TableOfContents
+<wiki:toc />
 
 =JSON Service=
 
