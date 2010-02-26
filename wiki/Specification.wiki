@@ -192,7 +192,7 @@ object {
 
 =JSON Service Registries=
 
-A JSON Service registry is a URL that upon GET with content type application/json simply provides a structured collection of JSON Service URLs, in accordance with the [http://json-service.googlecode.com/svn/trunk/json-service-registry-schema.json JSON Registry Schema] detailed below in http://orderly-json.org Orderly] representation. Note that the schema supports service taxonomies in the form a/b/c.
+A JSON Service registry is a URL that upon GET with content type application/json simply provides a structured collection of JSON Service URLs, in accordance with the [http://json-service.googlecode.com/svn/trunk/json-service-registry-schema.json JSON Registry Schema] detailed below in [http://orderly-json.org Orderly] representation. Note that the schema supports service taxonomies in the form a/b/c.
 
 <code language="cpp">
 array {
