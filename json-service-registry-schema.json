@@ -1,0 +1,27 @@
+{
+  "type": "array",
+  "items": [
+    {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "taxonomyLocations": {
+          "type": "array",
+          "items": [
+            {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+

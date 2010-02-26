@@ -1,0 +1,236 @@
+{
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ],
+      "optional": true
+    },
+    "publisherName": {
+      "type": "string"
+    },
+    "publisherUrl": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "\\d+.\\d+"
+    },
+    "availableVersions": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "pattern": "\\d+.\\d+"
+        }
+      ],
+      "optional": true
+    },
+    "resources": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "urlTemplate": {
+              "type": "string"
+            },
+            "urlVariables": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "pattern": {
+                      "type": "string",
+                      "optional": true
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "actions": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "verb": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "customHeaders": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "pattern": {
+                              "type": "string",
+                              "optional": true
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "inputSchemaUrl": {
+                      "type": "string",
+                      "optional": true
+                    },
+                    "requiredCookies": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "responses": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "statusCode": {
+                              "type": "integer"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "setCookies": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "customHeaders": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "pattern": {
+                                      "type": "string",
+                                      "optional": true
+                                    },
+                                    "description": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "outputSchemaUrl": {
+                              "type": "string",
+                              "optional": true
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "mixinInformation": {
+      "type": "object",
+      "properties": {
+        "mixinMetaInformationSchema": {
+          "type": "string"
+        },
+        "isNonFunctional": {
+          "type": "boolean"
+        }
+      },
+      "optional": true
+    },
+    "implementedMixins": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string",
+              "optional": true,
+              "pattern": "\\d+.\\d+"
+            },
+            "metaInformationUrl": {
+              "type": "string"
+            },
+            "resourceIdMaps": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "mixinResourceId": {
+                      "type": "string"
+                    },
+                    "resourceId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ],
+              "optional": true
+            }
+          }
+        }
+      ],
+      "optional": true
+    }
+  },
+  "additionalProperties": true
+}
