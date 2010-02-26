@@ -40,7 +40,7 @@ A service must have a fixed descriptor URL for the most recent (stable) version,
 
 The fixed and optional versioned URLs are supplied in the descriptor.
 
-Version number must follow the eclipse specification: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
+Version number must follow the [http://wiki.eclipse.org/Version_Numbering Eclipse version number specification]: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
 
 Each segment captures a different intent:
 
@@ -55,7 +55,6 @@ Example scheme:
 http://domain.com/service/descriptor/stable - most recent version=2.0
 http://domain.com/service/descriptor/1.0.0
 http://domain.com/service/descriptor/2.0.0
-http://domain.com/service/descriptor/2.1.0.alpha
 }}}
 
 The URLs in the descriptors should, if applicable, change to reflect the service version.
