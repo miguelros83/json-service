@@ -1,8 +1,12 @@
 {
   "type": "object",
   "properties": {
-    "url": {
+    "latestDescriptorUrl": {
       "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "\\d+.\\d+"
     },
     "label": {
       "type": "string"
@@ -25,16 +29,20 @@
     "publisherUrl": {
       "type": "string"
     },
-    "version": {
-      "type": "string",
-      "pattern": "\\d+.\\d+"
-    },
     "availableVersions": {
       "type": "array",
       "items": [
         {
-          "type": "string",
-          "pattern": "\\d+.\\d+"
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "pattern": "\\d+.\\d+"
+            },
+            "descriptorUrl": {
+              "type": "string"
+            }
+          }
         }
       ],
       "optional": true
@@ -110,7 +118,8 @@
                             }
                           }
                         }
-                      ]
+                      ],
+                      "optional": true
                     },
                     "inputSchemaUrl": {
                       "type": "string",
@@ -134,7 +143,8 @@
                               "type": "integer"
                             },
                             "description": {
-                              "type": "string"
+                              "type": "string",
+                              "optional": true
                             },
                             "setCookies": {
                               "type": "array",
@@ -142,7 +152,8 @@
                                 {
                                   "type": "string"
                                 }
-                              ]
+                              ],
+                              "optional": true
                             },
                             "customHeaders": {
                               "type": "array",
@@ -162,7 +173,8 @@
                                     }
                                   }
                                 }
-                              ]
+                              ],
+                              "optional": true
                             },
                             "outputSchemaUrl": {
                               "type": "string",
@@ -180,14 +192,12 @@
         }
       ]
     },
-    "mixinInformation": {
+    "nonFunctionalMixinInformation": {
       "type": "object",
       "properties": {
         "mixinMetaInformationSchema": {
-          "type": "string"
-        },
-        "isNonFunctional": {
-          "type": "boolean"
+          "type": "string",
+          "optional": true
         }
       },
       "optional": true
@@ -207,7 +217,8 @@
               "pattern": "\\d+.\\d+"
             },
             "metaInformationUrl": {
-              "type": "string"
+              "type": "string",
+              "optional": true
             },
             "resourceIdMaps": {
               "type": "array",
