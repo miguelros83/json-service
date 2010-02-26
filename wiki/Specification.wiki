@@ -40,7 +40,14 @@ A service must have a fixed descriptor URL for the most recent (stable) version,
 
 The fixed and optional versioned URLs are supplied in the descriptor.
 
-Versions must be of the form `[major].[minor]` or `[major].[minor][modifier]`.
+Version number must follow the eclipse specification: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
+
+Each segment captures a different intent:
+
+  * the major segment indicates breakage in the API
+  * the minor segment indicates "externally visible" changes
+  * the service segment indicates bug fixes and the change of development stream 
+  * the qualifier segment indicates a particular build (and is optional)
 
 Example scheme:
 
