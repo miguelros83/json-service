@@ -60,6 +60,10 @@ http://domain.com/service/descriptor/2.0.0
 
 The URLs in the descriptors should, if applicable, change to reflect the service version.
 
+==Input & Output JSON Schemas==
+
+It is suggested that object key names are cross-language friendly, so that code can be generated for Java/.NET classes.
+
 ==Requests & Responses==
 
 JSON Service requests are by definition standard JSON+HTTP/REST-JSON requests.
