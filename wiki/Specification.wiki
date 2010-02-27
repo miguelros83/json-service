@@ -11,7 +11,7 @@ The JSON Service standard enforces no URL scheme, as per the [http://en.wikipedi
 
 _Currently, the standard is undergoing development. In particular, the schema URLs will change, and the JSON Schemas may be out of date._
 
-==JSON Service Descriptor==
+==JSON Service Descriptor (*JSD*)==
 
 The JSON Service Descriptor (*JSD*) is a JSON document returned as the result of a HTTP GET. 
 
@@ -29,18 +29,19 @@ Content-Type: application/json; charset=UTF-8; describedby=http://json-service.g
 
 As shown by the Content-Type header, the descriptor must conform to the [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema-lite.json JSON Service Descriptor Schema Lite], or the extended [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema].
 
+The Lite schema is simply cut down for ease of use / understanding and is fully compatible with the full schema.
 
-==JSON Service Versioning==
+==Versioning==
 
 The current version number must be included in the descriptor.
 
 Services may, optionally, offer different versions. 
 
-A service must have a fixed descriptor URL for the most recent (stable) version, and also a different descriptor URL for each version, including the most recent version.
+*A service must have a fixed descriptor URL* for the most recent (stable) version, and also a different descriptor URL for each version, including the most recent version.
 
 The fixed and optional versioned URLs are supplied in the descriptor.
 
-Version number should follow the [http://wiki.eclipse.org/Version_Numbering Eclipse version number specification]: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
+Version number must follow the [http://wiki.eclipse.org/Version_Numbering Eclipse version number specification]: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
 
 Each segment captures a different intent:
 
@@ -59,11 +60,11 @@ http://domain.com/service/descriptor/2.0.0
 
 The URLs in the descriptors should, if applicable, change to reflect the service version.
 
-==JSON Service Requests==
+==Requests & Responses==
 
 JSON Service requests are by definition standard JSON+HTTP/REST-JSON requests.
 
-Note that you _should_ include describedby in the Content-Type response header if you are returning JSON.
+Note that you _should_ include describedby in the Content-Type response header if you are returning JSON as below.
 
 <code language="html">
 POST /some/service/id4454 HTTP/1.1
@@ -114,29 +115,30 @@ This is subtle at first, but incredibly powerful in its implications.
 
 ==Orderly repsresentations==
 
-===Orderly representation of  JSON Service Descriptor Schema Lite===
+=== JSON Service Descriptor Schema Lite===
 
 <code language="html">
 object {
-  string fixedDescriptorUrl;
+  string url;
   string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
-  string label;
-  string description;
-  array { string; } tags?;
-  string publisherName;
-  string publisherUrl;
-  array { // of versions
+  string fixedDescriptorUrl;  // the unchanging url for the most recent version
+  array { // of available versions
     object {
      string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
      string descriptorUrl;
     }
   }  availableVersions?;
+  string label;
+  string description;
+  array { string; } tags?;
+  string publisherName;
+  string publisherUrl;
   array { // of resources
     object {
       string id;
       string label;
       string description;
-      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template
+      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template ;
       array { // of urlVariables to substitute into the url template
         object {
           string name;
@@ -164,31 +166,32 @@ object {
 }*;
 </code>
 
-===Orderly representation of JSON Service Descriptor Schema===
+===JSON Service Descriptor Schema===
 
 Extends the Lite Schema.
 
 <code language="html">
 object {
-  string fixedDescriptorUrl;
+  string url;
   string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
-  string label;
-  string description;
-  array { string; } tags?;
-  string publisherName;
-  string publisherUrl;
-  array { // of versions
+  string fixedDescriptorUrl;  // the unchanging url for the most recent version
+  array { // of available versions
     object {
      string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
      string descriptorUrl;
     }
   }  availableVersions?;
+  string label;
+  string description;
+  array { string; } tags?;
+  string publisherName;
+  string publisherUrl;
   array { // of resources
     object {
       string id;
       string label;
       string description;
-      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template
+      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template ;
       array { // of urlVariables to substitute into the url template
         object {
           string name;
