@@ -114,7 +114,7 @@ This is subtle at first, but incredibly powerful in its implications.
 
 ==Orderly repsresentations==
 
-===[http://orderly-json.org Orderly] representation of  [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema Lite]===
+===Orderly representation of  JSON Service Descriptor Schema Lite===
 
 <code language="html">
 object {
@@ -164,7 +164,7 @@ object {
 }*;
 </code>
 
-===[http://orderly-json.org Orderly] representation of  [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema]===
+===Orderly representation of JSON Service Descriptor Schema===
 
 Extends the Lite Schema.
 
