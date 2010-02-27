@@ -27,7 +27,7 @@ Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
 Content-Type: application/json; charset=UTF-8; describedby=http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json
 </code>
 
-As shown by the Content-Type header, the descriptor must conform to the [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema].
+As shown by the Content-Type header, the descriptor must conform to the [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema-lite.json JSON Service Descriptor Schema Lite], or the extended [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema].
 
 
 ==JSON Service Versioning==
@@ -40,13 +40,13 @@ A service must have a fixed descriptor URL for the most recent (stable) version,
 
 The fixed and optional versioned URLs are supplied in the descriptor.
 
-Version number must follow the [http://wiki.eclipse.org/Version_Numbering Eclipse version number specification]: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
+Version number should follow the [http://wiki.eclipse.org/Version_Numbering Eclipse version number specification]: Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
 
 Each segment captures a different intent:
 
   * the major segment indicates breakage in the API
   * the minor segment indicates "externally visible" changes
-  * the service segment indicates bug fixes and the change of development stream 
+  * the service segment indicates bug fixes and the change of development stream (optional)
   * the qualifier segment indicates a particular build (and is optional)
 
 Example scheme:
@@ -112,7 +112,61 @@ Further, for each implementation, we can find what the mixin-specific configurat
 
 This is subtle at first, but incredibly powerful in its implications. 
 
-==[http://orderly-json.org Orderly] representation of  [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema]==
+==Orderly repsresentations==
+
+===[http://orderly-json.org Orderly] representation of  [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema Lite]===
+
+<code language="html">
+object {
+  string latestDescriptorUrl; // this should be the fixed (unversioned) URL
+  string version /\d+.\d+/;
+  string label;
+  string description;
+  array { string; } tags?;
+  string publisherName;
+  string publisherUrl;
+  array { // of versions
+    object {
+     string version /\d+.\d+/;
+     string descriptorUrl;
+    }
+  }  availableVersions?;
+  array { // of resources
+    object {
+      string id;
+      string label;
+      string description;
+      string urlTemplate;
+      array { // of urlVariables
+        object {
+          string name;
+          string pattern?;
+          string description;
+        }  
+      } urlVariables;
+      array { // of actions on the resource
+        object {
+          string verb; // e.g. GET, PUT
+          string label;
+          string description;
+          string inputSchemaUrl?; // if there is any JSON input
+          array { // of response
+            object {
+              integer statusCode; // e.g. 200
+              string description?;
+              string outputSchemaUrl?; // if there is any JSON output
+            };
+          } responses;
+        };
+      } actions;
+    }
+  } resources;
+}*;
+</code>
+
+===[http://orderly-json.org Orderly] representation of  [http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json JSON Service Descriptor Schema]===
+
+Extends the Lite Schema.
 
 <code language="html">
 object {
@@ -196,7 +250,6 @@ object {
   } implementedMixins?;
 }*;
 </code>
-
 
 =JSON Service Registries=
 
