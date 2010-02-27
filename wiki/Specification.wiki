@@ -136,8 +136,8 @@ object {
       string id;
       string label;
       string description;
-      string urlTemplate;
-      array { // of urlVariables
+      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template
+      array { // of urlVariables to substitute into the url template
         object {
           string name;
           string pattern?;
@@ -188,8 +188,8 @@ object {
       string id;
       string label;
       string description;
-      string urlTemplate;
-      array { // of urlVariables
+      string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template
+      array { // of urlVariables to substitute into the url template
         object {
           string name;
           string pattern?;
