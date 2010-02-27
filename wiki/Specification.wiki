@@ -64,6 +64,10 @@ The URLs in the descriptors should, if applicable, change to reflect the service
 
 It is suggested that object key names are cross-language friendly, so that code can be generated for Java/.NET classes.
 
+==Descriptions==
+
+Description fields should be [http://en.wikipedia.org/wiki/Creole_(markup) Creole] wikitext.
+
 ==Requests & Responses==
 
 JSON Service requests are by definition standard JSON+HTTP/REST-JSON requests.
