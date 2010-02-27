@@ -118,7 +118,7 @@ This is subtle at first, but incredibly powerful in its implications.
 
 <code language="html">
 object {
-  string latestDescriptorUrl; // this should be the fixed (unversioned) URL
+  string fixedDescriptorUrl;
   string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
   string label;
   string description;
@@ -170,7 +170,7 @@ Extends the Lite Schema.
 
 <code language="html">
 object {
-  string latestDescriptorUrl; // this should be the fixed (unversioned) URL
+  string fixedDescriptorUrl;
   string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
   string label;
   string description;
@@ -231,16 +231,17 @@ object {
   } resources;
 
   // only included if this is a mixin spec, i.e. non-functional
+  // empty object if not meta information schema
   object { 
     string mixinMetaInformationSchema?;
   } nonFunctionalMixinInformation?;
 
   array { // of implemented mixins
     object {
-      string url; // must be the fixed url
-      string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
+      string mixinFixedDescriptorUrl; // must be the fixed url
+      string mixinVersion /\d+\.\d+(\.\d+(\.\w+)?)?/;
       string metaInformationUrl?; // if any meta-information is required
-      array {
+      array { // of mixin resource id => resource id map
         object { 
           string mixinResourceId;
           string resourceId; 
