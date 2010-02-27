@@ -9,7 +9,7 @@ This web service meta-information JSON is in the form of a descriptor, and the f
 
 The JSON Service standard enforces no URL scheme, as per the [http://en.wikipedia.org/wiki/HATEOAS HATEOAS] constraint of REST.
 
-_Currently, the standard is undergoing development. In particular, the schema URLs will change._
+_Currently, the standard is undergoing development. In particular, the schema URLs will change, and the JSON Schemas may be out of date._
 
 ==JSON Service Descriptor==
 
