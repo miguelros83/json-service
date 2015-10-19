@@ -1,0 +1,290 @@
+
+
+# JSON Service #
+
+A HTTP+JSON web service that adheres to the JSON Service standard makes information about itself, or _meta-information_, available via JSON.
+
+This web service meta-information JSON is in the form of a descriptor, and the format of this descriptor can itself be described using a [JSON Schema](http://json-schema.org).
+
+The JSON Service standard enforces no URL scheme, as per the [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) constraint of REST.
+
+_Currently, the standard is undergoing development. In particular, the schema URLs will change, and the JSON Schemas may be out of date._
+
+## JSON Service Descriptor (**JSD**) ##
+
+The JSON Service Descriptor (**JSD**) is a JSON document returned as the result of a HTTP GET.
+
+```html
+
+GET /some/service/descriptor HTTP/1.1
+Accept: application/json```
+
+Mandatory headers:
+
+```html
+
+HTTP/1.1 200 OK
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Content-Type: application/json; charset=UTF-8; describedby=http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json
+```
+
+As shown by the Content-Type header, the descriptor must conform to the [JSON Service Descriptor Schema Lite](http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema-lite.json), or the extended [JSON Service Descriptor Schema](http://json-service.googlecode.com/svn/trunk/json-service-descriptor-schema.json).
+
+The Lite schema is simply cut down for ease of use / understanding and is fully compatible with the full schema.
+
+## Versioning ##
+
+The current version number must be included in the descriptor.
+
+Services may, optionally, offer different versions.
+
+**A service must have a fixed descriptor URL** for the most recent (stable) version, and also a different descriptor URL for each version, including the most recent version.
+
+The fixed and optional versioned URLs are supplied in the descriptor.
+
+Version number must follow the [Eclipse version number specification](http://wiki.eclipse.org/Version_Numbering): Version numbers are composed of four (4) segments: 3 integers and a string respectively named major.minor.service.qualifier.
+
+Each segment captures a different intent:
+
+  * the major segment indicates breakage in the API
+  * the minor segment indicates "externally visible" changes
+  * the service segment indicates bug fixes and the change of development stream (optional)
+  * the qualifier segment indicates a particular build (and is optional)
+
+Example scheme:
+
+```
+http://domain.com/service/descriptor/stable - most recent version=2.0
+http://domain.com/service/descriptor/1.0.0
+http://domain.com/service/descriptor/2.0.0
+```
+
+The URLs in the descriptors should, if applicable, change to reflect the service version.
+
+## Input & Output JSON Schemas ##
+
+It is suggested that object key names are cross-language friendly, so that code can be generated for Java/.NET classes.
+
+## Descriptions ##
+
+Description fields should be [Creole](http://en.wikipedia.org/wiki/Creole_(markup)) wikitext.
+
+## Requests & Responses ##
+
+JSON Service requests are by definition standard JSON+HTTP/REST-JSON requests.
+
+Note that you _should_ include describedby in the Content-Type response header if you are returning JSON as below.
+
+```html
+
+POST /some/service/id4454 HTTP/1.1
+Accept: application/json
+
+{ "a":0, "b":"foo", "c":"23skidoo" }```
+
+```html
+
+HTTP/1.1 200 OK
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Content-Type: application/json; charset=UTF-8; describedby=http://domain.com/post-output-schema
+
+{"ok":true}```
+
+## Mixins ##
+
+Just as in modern OO languages, mixins are a form of multiple inheritance.
+
+**A mixin is a JSON service descriptor.** A mixin is not necessarily functional, but it may be.
+
+If a service S implements a mixin M:
+
+  * each resource in mixin M, must be mapped to a resource in the service S;
+    * by default they are mapped to resources with the same id;
+  * each resource-action defined by the mixin M descriptor must be supported by the implementing service S;
+    * the service S may extend the input/output JSON schema of the mixin M:
+      * if the schema of the mixin allows;
+      * if mixin input/output schema validates X, the extended schema must validate X;
+        * see the JSON schema [extends](http://tools.ietf.org/html/draft-zyp-json-schema-01#section-5.24) keyword.
+
+A mixin may wish implementations to provide extra meta-information. For example, for an image resizing service interface, an implementing service may have to define what file types is supports, or the maximum size of file.
+
+If a mixin wishes to define required extra meta-information for implementations to provide it defines a JSON schema for the meta-information in the descriptor.
+
+An implementation of a mixin then must provide a URL for this extra meta-information in their descriptor.
+
+### Implications ###
+
+**People can start creating new open standards for every service from image resizing to text analysis**.
+
+Given a mixin URL and a list of implementation URLs, we can select the implementations from the list that provide the functionality that the mixin describes. _(Note implementation is transitive, i.e. A implements B and B implements C => A implements C.)_
+
+Further, for each implementation, we can find what the mixin-specific configuration the implementation supports from the extra-meta data.
+
+**Implementations of a mixin can even be chosen at run time, and configured via user input on the fly.**
+
+This is subtle at first, but incredibly powerful in its implications.
+
+## Orderly repsresentations ##
+
+### JSON Service Descriptor Schema Lite ###
+
+```html
+
+object {
+string url;
+string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
+string fixedDescriptorUrl;  // the unchanging url for the most recent version
+array { // of available versions
+object {
+string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
+string descriptorUrl;
+}
+}  availableVersions?;
+string label;
+string description;
+array { string; } tags?;
+string publisherName;
+string publisherUrl;
+array { // of resources
+object {
+string id;
+string label;
+string description;
+string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template ;
+array { // of urlVariables to substitute into the url template
+object {
+string name;
+string pattern?;
+string description;
+}
+} urlVariables;
+array { // of actions on the resource
+object {
+string verb; // e.g. GET, PUT
+string label;
+string description;
+string inputSchemaUrl?; // if there is any JSON input
+array { // of response
+object {
+integer statusCode; // e.g. 200
+string description?;
+string outputSchemaUrl?; // if there is any JSON output
+};
+} responses;
+};
+} actions;
+}
+} resources;
+}*;
+```
+
+### JSON Service Descriptor Schema ###
+
+Extends the Lite Schema.
+
+```html
+
+object {
+string url;
+string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
+string fixedDescriptorUrl;  // the unchanging url for the most recent version
+array { // of available versions
+object {
+string version /\d+\.\d+(\.\d+(\.\w+)?)?/;
+string descriptorUrl;
+}
+}  availableVersions?;
+string label;
+string description;
+array { string; } tags?;
+string publisherName;
+string publisherUrl;
+array { // of resources
+object {
+string id;
+string label;
+string description;
+string urlTemplate; // as per http://en.wikipedia.org/wiki/URL_Template ;
+array { // of urlVariables to substitute into the url template
+object {
+string name;
+string pattern?;
+string description;
+}
+} urlVariables;
+array { // of actions on the resource
+object {
+string verb; // e.g. GET, PUT
+string label;
+string description;
+array {  // of important custom HTTP request headers
+object {
+string name;
+string pattern?;
+string description;
+};
+}  customHeaders?;
+string inputSchemaUrl?; // if there is any JSON input
+array { string; }  requiredCookies;
+array { // of response
+object {
+integer statusCode; // e.g. 200
+string description?;
+array { string; }  setCookies?;
+array { // of important custom HTTP response headers
+object {
+string name;
+string pattern?;
+string description;
+};
+}  customHeaders?;
+string outputSchemaUrl?; // if there is any JSON output
+};
+} responses;
+};
+} actions;
+}
+} resources;
+
+// only included if this is a mixin spec, i.e. non-functional
+// empty object if not meta information schema
+object {
+string mixinMetaInformationSchema?;
+} nonFunctionalMixinInformation?;
+
+array { // of implemented mixins
+object {
+string mixinFixedDescriptorUrl; // must be the fixed url
+string mixinVersion /\d+\.\d+(\.\d+(\.\w+)?)?/;
+string metaInformationUrl?; // if any meta-information is required
+array { // of mixin resource id => resource id map
+object {
+string mixinResourceId;
+string resourceId;
+};
+} resourceIdMaps?;
+};
+} implementedMixins?;
+}*;
+```
+
+# JSON Service Registries #
+
+A JSON Service registry is a URL that upon GET with content type application/json simply provides a structured collection of JSON Service URLs, in accordance with the [JSON Registry Schema](http://json-service.googlecode.com/svn/trunk/json-service-registry-schema.json) detailed below in [Orderly](http://orderly-json.org) representation. Note that the schema supports service taxonomies in the form a/b/c.
+
+```cpp
+
+array {
+object {
+string url;
+array {
+array {
+string;
+}
+} taxonomyLocations;
+};
+};```
+
+# Overloading #
+
+All URLs described in this document may be overloaded, e.g. to provide a HTML interface, but must work as described in this document when the HTTP request "Accept" header is set as application/json.
